@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f4f6f9">
+
+    <!-- TOP: Header Bar (#2c3e50) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#2c3e50"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gym Management System"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <!-- MAIN CONTENT: Left Sidebar + Center Cards -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <!-- LEFT: Sidebar (#34495e) -->
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:background="#34495e"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Dashboard"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/membersLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:text="Members"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/paymentsLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:text="Payments"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:text="Logout"
+                android:textColor="#e74c3c"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <!-- CENTER: Stats Cards -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="25dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome Back"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#2c3e50"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <!-- Card 1: Total Members -->
+                <LinearLayout
+                    android:layout_width="220dp"
+                    android:layout_height="120dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/card_bg"
+                    android:layout_marginEnd="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Members"
+                        android:textSize="14sp"
+                        android:textColor="#7f8c8d" />
+
+                    <TextView
+                        android:id="@+id/totalMembersLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="128"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="#2c3e50"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+
+                <!-- Card 2: Monthly Income -->
+                <LinearLayout
+                    android:layout_width="220dp"
+                    android:layout_height="120dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/card_bg">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monthly Income"
+                        android:textSize="14sp"
+                        android:textColor="#7f8c8d" />
+
+                    <TextView
+                        android:id="@+id/monthlyIncomeLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="45,000"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="#27ae60"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

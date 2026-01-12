@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_gradient">
+
+    <!-- Login Card (Centered) -->
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:background="@drawable/login_card_bg">
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GYM MANAGEMENT LOGIN"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FF0000"
+            android:gravity="center"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Username Field -->
+        <EditText
+            android:id="@+id/usernameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:background="@drawable/edittext_rounded"
+            android:padding="15dp"
+            android:layout_marginBottom="15dp" />
+
+        <!-- Password Field -->
+        <EditText
+            android:id="@+id/passwordField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:background="@drawable/edittext_rounded"
+            android:padding="15dp"
+            android:layout_marginBottom="15dp" />
+
+        <!-- Error Label -->
+        <TextView
+            android:id="@+id/errorLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textColor="#FF0000"
+            android:gravity="center"
+            android:contentDescription="Login error message"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Login"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/login_button_bg"
+            android:layout_marginTop="10dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f8f9fa">
+
+    <!-- TOP: Member Info + Refresh (White bar with bottom border) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#FFFFFF"
+        android:padding="15dp 25dp"
+        android:layout_marginBottom="1dp"
+        android:backgroundTint="#dee2e6">
+
+        <TextView
+            android:id="@+id/memberNameLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="👤 Loading..."
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#2c3e50" />
+
+        <Button
+            android:id="@+id/refreshBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔄 Refresh"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:background="@drawable/refresh_button_bg"
+            android:padding="10dp 20dp"
+            android:minHeight="48dp" />
+    </LinearLayout>
+
+    <!-- CENTER: Scrollable Tables -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+
+            <!-- 1. Payments Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="25dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💰 Payments"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#27ae60"
+                    android:layout_marginBottom="10dp" />
+
+                <!-- Simple table using RecyclerView or LinearLayout -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/table"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/paymentsSample"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sample: $150 - 2026-01-12"
+                        android:textColor="#2c3e50"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 2. Attendance Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="25dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📅 Attendance"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#f39c12"
+                    android:layout_marginBottom="10dp" />
+
+                <LinearLayout
+                    android:id="@+id/attendanceTable"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/table"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sample: 2026-01-12 - Present"
+                        android:textColor="#2c3e50"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 3. Workout Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="25dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💪 Workout History"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#e74c3c"
+                    android:layout_marginBottom="10dp" />
+
+                <LinearLayout
+                    android:id="@+id/workoutTable"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="120dp">

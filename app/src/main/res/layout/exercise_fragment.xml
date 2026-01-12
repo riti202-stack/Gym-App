@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ExerciseFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="#f0f4f7">
+
+        <!-- TITLE -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🏋️ Exercise &amp; Timer"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
+            android:gravity="center" />
+
+        <!-- EXERCISE 1: PUSH UPS -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:background="#e8f4f8"
+            android:padding="10dp"
+            android:elevation="2dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="💪 Push Ups"
+                android:textStyle="bold"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/timer1"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:text="00:00"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/reps1"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:text="0 reps"
+                android:background="#d5f4e6"
+                android:gravity="center"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/startBtn1"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="▶️ Start"
+                android:textSize="12sp"
+                style="@style/Widget.AppCompat.Button.Small" />
+
+            <Button
+                android:id="@+id/pauseBtn1"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="⏸️ Pause"
+                android:textSize="12sp"
+                style="@style/Widget.AppCompat.Button.Small" />
+
+            <Button
+                android:id="@+id/stopBtn1"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="⏹️ Stop"
+                android:textSize="12sp"
+                style="@style/Widget.AppCompat.Button.Small" />
+
+            <Button
+                android:id="@+id/addRepBtn1"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:text="+ Rep"
+                android:backgroundTint="#27ae60"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- EXERCISE 2: SQUATS -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:background="#fff3e0"
+            android:padding="10dp"
+            android:elevation="2dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="🦵 Squats"
+                android:textStyle="bold"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/timer2"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:text="00:00"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/reps2"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:text="0 reps"
+                android:background="#d5f4e6"
+                android:gravity="center"
+                android:textSize="14sp" />
+
+            <Button android:id="@+id/startBtn2" android:layout_width="0dp" android:layout_height="40dp"
+                android:layout_weight="1" android:text="▶️ Start" android:textSize="12sp"
+                style="@style/Widget.AppCompat.Button.Small" />
+            <Button android:id="@+id/pauseBtn2" android:layout_width="0dp" android:layout_height="40dp"
+                android:layout_weight="1" android:text="⏸️ Pause" android:textSize="12sp"
+                style="@style/Widget.AppCompat.Button.Small" />
+            <Button android:id="@+id/stopBtn2" android:layout_width="0dp" android:layout_height="40dp"
+                android:layout_weight="1" android:text="⏹️ Stop" android:textSize="12sp"
+                style="@style/Widget.AppCompat.Button.Small" />
+            <Button android:id="@+id/addRepBtn2" android:layout_width="60dp" android:layout_height="40dp"
+                android:text="+ Rep" android:backgroundTint="#27ae60" android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- REPEAT FOR EXERCISES 3,4,5 with alternating backgrounds -->
+        <!-- Exercise 3: Sit Ups (#e8f4f8) -->
+        <!-- Exercise 4: Lunges (#fff3e0) -->
+        <!-- Exercise 5: Plank (#e8f4f8) -->
+
+        <!-- WEIGHT SECTION -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:background="#e8f5e8"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⚖️ Weight Tracking"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Weight (kg):"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical" />
+
+                <EditText
+                    android:id="@+id/weightInput"
+                    android:layout_width="100dp"
+                    android:layout_height="45dp"
+                    android:inputType="numberDecimal"
+                    android:hint="72.5"
+                    android:layout_marginStart="15dp" />
+
+                <Button
+                    android:id="@+id/saveWeightBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:text="💾 Save Weight"
+                    android:backgroundTint="#27ae60"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- MEAL TRACKER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:background="#e8f5e8"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🍳 Meal Calorie Tracker"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#27ae60"
+                android:layout_marginBottom="15dp" />
+
+            <!-- Breakfast -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:layout_marginBottom="8dp">
+                <TextView android:layout_width="80dp" android:layout_height="wrap_content"
+                    android:text="🥞 Breakfast:" android:textStyle="bold" android:gravity="center_vertical"/>
+                <EditText android:id="@+id/breakfastCalories" android:layout_width="80dp"
+                    android:layout_height="45dp" android:inputType="number" android:hint="500"/>
+                <Button android:id="@+id/saveBreakfastBtn" android:layout_width="wrap_content"
+                    android:layout_height="45dp" android:text="Save" android:backgroundTint="#f1c40f"
+                    android:textColor="#FFFFFF" android:textSize="12sp"/>
+            </LinearLayout>
+
+            <!-- Lunch, Dinner (similar structure) -->
+            <!-- Total Calories display -->
+
+        </LinearLayout>
+
+        <!-- BACK BUTTON -->
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:text="← Back to User Panel"
+            android:backgroundTint="#95a5a6"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>
