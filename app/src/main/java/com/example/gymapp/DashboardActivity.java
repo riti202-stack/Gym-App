@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.util.DatabaseHelper;
 
@@ -13,8 +15,8 @@ public class DashboardActivity extends AppCompatActivity {
 
     private TextView logoutBtn, paymentsLabel, totalMembersLabel, monthlyIncomeLabel, membersLabel;
     private DatabaseHelper dbHelper;
-    private Handler handler = new Handler();
-    private Runnable refreshRunnable;
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private final Runnable refreshRunnable = this::loadDashboardStats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         loadDashboardStats();
 
-        // ✅ FIXED: Only TextViews that exist
         if (membersLabel != null) membersLabel.setOnClickListener(v -> showMembers());
         if (paymentsLabel != null) paymentsLabel.setOnClickListener(v -> showPayments());
         logoutBtn.setOnClickListener(v -> handleLogout());
@@ -46,73 +47,44 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void updateTotalMembers() {
         new Thread(() -> {
-            SQLiteDatabase db = dbHelper.getReadableDatabase();
-            try {
-                Cursor cursor = db.rawQuery("SELECT COUNT(*) as total FROM members", null);
-                if (cursor.moveToFirst()) {
-                    int total = cursor.getInt(0);
-                    runOnUiThread(() -> {
-                        if (totalMembersLabel != null) {
-                            totalMembersLabel.setText(String.valueOf(total));
-                        }
-                    });
+            try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+                try (Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM members", null)) {
+                    if (cursor.moveToFirst()) {
+                        int total = cursor.getInt(0);
+                        runOnUiThread(() -> totalMembersLabel.setText(String.valueOf(total)));
+                    }
                 }
-                cursor.close();
             } catch (Exception e) {
-                runOnUiThread(() -> {
-                    if (totalMembersLabel != null) totalMembersLabel.setText("0");
-                });
-            } finally {
-                db.close();
+                runOnUiThread(() -> totalMembersLabel.setText("0"));
             }
         }).start();
     }
 
     private void updateMonthlyIncome() {
         new Thread(() -> {
-            SQLiteDatabase db = dbHelper.getReadableDatabase();
-            try {
-                Cursor cursor = db.rawQuery("SELECT COALESCE(SUM(amount), 0) as total FROM payments", null);
-                if (cursor.moveToFirst()) {
-                    double total = cursor.getDouble(0);
-                    runOnUiThread(() -> {
-                        if (monthlyIncomeLabel != null) {
-                            monthlyIncomeLabel.setText("৳" + (int)total);
-                        }
-                    });
+            try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+                try (Cursor cursor = db.rawQuery("SELECT COALESCE(SUM(amount), 0) FROM payments", null)) {
+                    if (cursor.moveToFirst()) {
+                        double total = cursor.getDouble(0);
+                        runOnUiThread(() -> monthlyIncomeLabel.setText("৳" + (int)total));
+                    }
                 }
-                cursor.close();
             } catch (Exception e) {
-                runOnUiThread(() -> {
-                    if (monthlyIncomeLabel != null) monthlyIncomeLabel.setText("৳0");
-                });
-            } finally {
-                db.close();
+                runOnUiThread(() -> monthlyIncomeLabel.setText("৳0"));
             }
         }).start();
     }
 
-    // ✅ FIXED: Proper recurring timer
     private void startAutoRefresh() {
-        refreshRunnable = this::loadDashboardStats;
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                loadDashboardStats();
-                handler.postDelayed(this, 30000);  // Repeat every 30s
-            }
-        }, 30000);
+        handler.postDelayed(refreshRunnable, 30000);  // Refresh every 30s
     }
 
-    // ✅ FIXED: Create MembersActivity instead of Fragment
     private void showMembers() {
-        Intent intent = new Intent(this, MembersActivity.class);  // Create this Activity
-        startActivity(intent);
+        startActivity(new Intent(this, MembersActivity.class));
     }
 
     private void showPayments() {
-        Intent intent = new Intent(this, PaymentsActivity.class);  // Create this Activity
-        startActivity(intent);
+        startActivity(new Intent(this, PaymentsActivity.class));
     }
 
     private void handleLogout() {
@@ -125,9 +97,7 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (handler != null && refreshRunnable != null) {
-            handler.removeCallbacks(refreshRunnable);
-        }
+        handler.removeCallbacks(refreshRunnable);
         if (dbHelper != null) {
             dbHelper.close();
         }

@@ -1,6 +1,5 @@
 package com.example.gymapp;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,56 +16,42 @@ import java.util.Locale;
 public class ExerciseActivity extends AppCompatActivity {
 
     private int memberId = 1;
-
-    // ✅ EXACT MATCH - All @FXML fields from controller
     private TextView timer1, timer2, timer3, timer4, timer5;
     private TextView reps1, reps2, reps3, reps4, reps5;
-    private EditText weightInput;
-    private Button saveWeightBtn;
+    private EditText weightInput, breakfastCalories, lunchCalories, dinnerCalories;
+    private Button saveWeightBtn, attendanceBtn, backBtn;
     private LinearLayout dietChart;
-    private Button attendanceBtn, backBtn;
-    private EditText breakfastCalories, lunchCalories, dinnerCalories;
     private TextView totalCalories;
 
-    // Timer state tracking (matches controller arrays)
+    // Timer arrays
     private Handler[] timersHandler = new Handler[5];
     private Runnable[] timerRunnables = new Runnable[5];
     private long[] startTimes = new long[5];
     private boolean[] isPaused = new boolean[5];
     private int[] repCounts = new int[5];
-
     private final String[] EXERCISES = {"Push Ups", "Squats", "Sit Ups", "Lunges", "Plank"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_exercise);  // ✅ Use same layout!
+        setContentView(R.layout.activity_exercise);  // ✅ FIXED
 
-        // Get memberId from Intent
         if (getIntent().hasExtra("memberId")) {
             memberId = getIntent().getIntExtra("memberId", 1);
         }
 
         initAllViews();
         setupAllListeners();
-        updateTotalCalories();
-        loadDietChart();
-
-        Toast.makeText(this, "🏋️ Exercise loaded for member: " + memberId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "🏋️ Exercise for member: " + memberId, Toast.LENGTH_SHORT).show();
     }
 
     private void initAllViews() {
-        // ✅ EXACT @FXML field matches
-        timer1 = findViewById(R.id.timer1);
-        timer2 = findViewById(R.id.timer2);
-        timer3 = findViewById(R.id.timer3);
-        timer4 = findViewById(R.id.timer4);
+        timer1 = findViewById(R.id.timer1); timer2 = findViewById(R.id.timer2);
+        timer3 = findViewById(R.id.timer3); timer4 = findViewById(R.id.timer4);
         timer5 = findViewById(R.id.timer5);
 
-        reps1 = findViewById(R.id.reps1);
-        reps2 = findViewById(R.id.reps2);
-        reps3 = findViewById(R.id.reps3);
-        reps4 = findViewById(R.id.reps4);
+        reps1 = findViewById(R.id.reps1); reps2 = findViewById(R.id.reps2);
+        reps3 = findViewById(R.id.reps3); reps4 = findViewById(R.id.reps4);
         reps5 = findViewById(R.id.reps5);
 
         weightInput = findViewById(R.id.weightInput);
@@ -74,7 +59,6 @@ public class ExerciseActivity extends AppCompatActivity {
         dietChart = findViewById(R.id.dietChart);
         attendanceBtn = findViewById(R.id.attendanceBtn);
         backBtn = findViewById(R.id.backBtn);
-
         breakfastCalories = findViewById(R.id.breakfastCalories);
         lunchCalories = findViewById(R.id.lunchCalories);
         dinnerCalories = findViewById(R.id.dinnerCalories);
@@ -82,129 +66,103 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     private void setupAllListeners() {
-        // Timer 1 buttons
-        Button startBtn1 = findViewById(R.id.startBtn1); startBtn1.setOnClickListener(v -> startTimer1());
-        Button pauseBtn1 = findViewById(R.id.pauseBtn1); pauseBtn1.setOnClickListener(v -> pauseTimer1());
-        Button stopBtn1 = findViewById(R.id.stopBtn1); stopBtn1.setOnClickListener(v -> stopTimer1());
-        Button addRepBtn1 = findViewById(R.id.addRepBtn1); addRepBtn1.setOnClickListener(v -> addRep1());
+        // Timer 1-5 buttons (safe null checks)
+        safeSetListener(R.id.startBtn1, this::startTimer1);
+        safeSetListener(R.id.pauseBtn1, this::pauseTimer1);
+        safeSetListener(R.id.stopBtn1, this::stopTimer1);
+        safeSetListener(R.id.addRepBtn1, this::addRep1);
 
-        // Timer 2 buttons
-        Button startBtn2 = findViewById(R.id.startBtn2); startBtn2.setOnClickListener(v -> startTimer2());
-        Button pauseBtn2 = findViewById(R.id.pauseBtn2); pauseBtn2.setOnClickListener(v -> pauseTimer2());
-        Button stopBtn2 = findViewById(R.id.stopBtn2); stopBtn2.setOnClickListener(v -> stopTimer2());
-        Button addRepBtn2 = findViewById(R.id.addRepBtn2); addRepBtn2.setOnClickListener(v -> addRep2());
+        safeSetListener(R.id.startBtn2, this::startTimer2);
+        safeSetListener(R.id.pauseBtn2, this::pauseTimer2);
+        safeSetListener(R.id.stopBtn2, this::stopTimer2);
+        safeSetListener(R.id.addRepBtn2, this::addRep2);
 
-        // Timer 3 buttons
-        Button startBtn3 = findViewById(R.id.startBtn3); startBtn3.setOnClickListener(v -> startTimer3());
-        Button pauseBtn3 = findViewById(R.id.pauseBtn3); pauseBtn3.setOnClickListener(v -> pauseTimer3());
-        Button stopBtn3 = findViewById(R.id.stopBtn3); stopBtn3.setOnClickListener(v -> stopTimer3());
-        Button addRepBtn3 = findViewById(R.id.addRepBtn3); addRepBtn3.setOnClickListener(v -> addRep3());
+        safeSetListener(R.id.startBtn3, this::startTimer3);
+        safeSetListener(R.id.pauseBtn3, this::pauseTimer3);
+        safeSetListener(R.id.stopBtn3, this::stopTimer3);
+        safeSetListener(R.id.addRepBtn3, this::addRep3);
 
-        // Timer 4 buttons
-        Button startBtn4 = findViewById(R.id.startBtn4); startBtn4.setOnClickListener(v -> startTimer4());
-        Button pauseBtn4 = findViewById(R.id.pauseBtn4); pauseBtn4.setOnClickListener(v -> pauseTimer4());
-        Button stopBtn4 = findViewById(R.id.stopBtn4); stopBtn4.setOnClickListener(v -> stopTimer4());
-        Button addRepBtn4 = findViewById(R.id.addRepBtn4); addRepBtn4.setOnClickListener(v -> addRep4());
+        safeSetListener(R.id.startBtn4, this::startTimer4);
+        safeSetListener(R.id.pauseBtn4, this::pauseTimer4);
+        safeSetListener(R.id.stopBtn4, this::stopTimer4);
+        safeSetListener(R.id.addRepBtn4, this::addRep4);
 
-        // Timer 5 buttons
-        Button startBtn5 = findViewById(R.id.startBtn5); startBtn5.setOnClickListener(v -> startTimer5());
-        Button pauseBtn5 = findViewById(R.id.pauseBtn5); pauseBtn5.setOnClickListener(v -> pauseTimer5());
-        Button stopBtn5 = findViewById(R.id.stopBtn5); stopBtn5.setOnClickListener(v -> stopTimer5());
-        Button addRepBtn5 = findViewById(R.id.addRepBtn5); addRepBtn5.setOnClickListener(v -> addRep5());
+        safeSetListener(R.id.startBtn5, this::startTimer5);
+        safeSetListener(R.id.pauseBtn5, this::pauseTimer5);
+        safeSetListener(R.id.stopBtn5, this::stopTimer5);
+        safeSetListener(R.id.addRepBtn5, this::addRep5);
 
-        // Other buttons
-        saveWeightBtn.setOnClickListener(v -> saveWeight());
-        attendanceBtn.setOnClickListener(v -> markAttendance());
-        backBtn.setOnClickListener(v -> finish());  // ✅ Activity back = finish()
+        if (saveWeightBtn != null) saveWeightBtn.setOnClickListener(v -> saveWeight());
+        if (attendanceBtn != null) attendanceBtn.setOnClickListener(v -> markAttendance());
+        if (backBtn != null) backBtn.setOnClickListener(v -> finish());
 
-        findViewById(R.id.saveBreakfastBtn).setOnClickListener(v -> saveBreakfast());
-        findViewById(R.id.saveLunchBtn).setOnClickListener(v -> saveLunch());
-        findViewById(R.id.saveDinnerBtn).setOnClickListener(v -> saveDinner());
+        safeSetListener(R.id.saveBreakfastBtn, this::saveBreakfast);
+        safeSetListener(R.id.saveLunchBtn, this::saveLunch);
+        safeSetListener(R.id.saveDinnerBtn, this::saveDinner);
     }
 
-    // ✅ ALL SAME TIMER METHODS (unchanged)
-    @SuppressWarnings("unused")
+    private void safeSetListener(int id, Runnable action) {
+        Button btn = findViewById(id);
+        if (btn != null) btn.setOnClickListener(v -> action.run());
+    }
+
+    // ✅ FIXED TIMER METHODS
     public void startTimer1() { startTimer(0, timer1, reps1); }
-    @SuppressWarnings("unused")
     public void pauseTimer1() { pauseTimer(0, timer1); }
-    @SuppressWarnings("unused")
     public void stopTimer1() { stopTimer(0, timer1, reps1); }
-
-    @SuppressWarnings("unused")
-    public void startTimer2() { startTimer(1, timer2, reps2); }
-    @SuppressWarnings("unused")
-    public void pauseTimer2() { pauseTimer(1, timer2); }
-    @SuppressWarnings("unused")
-    public void stopTimer2() { stopTimer(1, timer2, reps2); }
-
-    @SuppressWarnings("unused")
-    public void startTimer3() { startTimer(2, timer3, reps3); }
-    @SuppressWarnings("unused")
-    public void pauseTimer3() { pauseTimer(2, timer3); }
-    @SuppressWarnings("unused")
-    public void stopTimer3() { stopTimer(2, timer3, reps3); }
-
-    @SuppressWarnings("unused")
-    public void startTimer4() { startTimer(3, timer4, reps4); }
-    @SuppressWarnings("unused")
-    public void pauseTimer4() { pauseTimer(3, timer4); }
-    @SuppressWarnings("unused")
-    public void stopTimer4() { stopTimer(3, timer4, reps4); }
-
-    @SuppressWarnings("unused")
-    public void startTimer5() { startTimer(4, timer5, reps5); }
-    @SuppressWarnings("unused")
-    public void pauseTimer5() { pauseTimer(4, timer5); }
-    @SuppressWarnings("unused")
-    public void stopTimer5() { stopTimer(4, timer5, reps5); }
-
-    @SuppressWarnings("unused")
     public void addRep1() { addRep(0, reps1, "Push Ups"); }
-    @SuppressWarnings("unused")
+
+    public void startTimer2() { startTimer(1, timer2, reps2); }
+    public void pauseTimer2() { pauseTimer(1, timer2); }
+    public void stopTimer2() { stopTimer(1, timer2, reps2); }
     public void addRep2() { addRep(1, reps2, "Squats"); }
-    @SuppressWarnings("unused")
+
+    public void startTimer3() { startTimer(2, timer3, reps3); }
+    public void pauseTimer3() { pauseTimer(2, timer3); }
+    public void stopTimer3() { stopTimer(2, timer3, reps3); }
     public void addRep3() { addRep(2, reps3, "Sit Ups"); }
-    @SuppressWarnings("unused")
+
+    public void startTimer4() { startTimer(3, timer4, reps4); }
+    public void pauseTimer4() { pauseTimer(3, timer4); }
+    public void stopTimer4() { stopTimer(3, timer4, reps4); }
     public void addRep4() { addRep(3, reps4, "Lunges"); }
-    @SuppressWarnings("unused")
+
+    public void startTimer5() { startTimer(4, timer5, reps5); }
+    public void pauseTimer5() { pauseTimer(4, timer5); }
+    public void stopTimer5() { stopTimer(4, timer5, reps5); }
     public void addRep5() { addRep(4, reps5, "Plank"); }
 
-    // ✅ ALL SAME TIMER LOGIC (unchanged from Fragment)
     private void startTimer(int index, TextView timerLabel, TextView repsLabel) {
+        if (timerLabel == null) return;
+
         if (timersHandler[index] != null) {
             timersHandler[index].removeCallbacksAndMessages(null);
         }
-
-        final long startTime = System.currentTimeMillis();
+        startTimes[index] = System.currentTimeMillis();
+        isPaused[index] = false;
         timersHandler[index] = new Handler(Looper.getMainLooper());
 
-        timerRunnables[index] = new Runnable() {
-            @Override
-            public void run() {
-                if (timersHandler[index] == null) return;
-                long elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000;
-                int minutes = (int)(elapsedSeconds / 60);
-                int seconds = (int)(elapsedSeconds % 60);
-                timerLabel.setText(String.format("%02d:%02d", minutes, seconds));
-
-                if (!isPaused[index]) {
-                    timersHandler[index].postDelayed(this, 1000);
-                }
+        timerRunnables[index] = () -> {
+            if (timersHandler[index] == null || timerLabel == null) return;
+            long elapsed = (System.currentTimeMillis() - startTimes[index]) / 1000;
+            int min = (int)(elapsed / 60);
+            int sec = (int)(elapsed % 60);
+            timerLabel.setText(String.format("%02d:%02d", min, sec));
+            if (!isPaused[index]) {
+                timersHandler[index].postDelayed(timerRunnables[index], 1000);
             }
         };
         timersHandler[index].post(timerRunnables[index]);
-        Toast.makeText(this, "▶️ Timer " + (index+1) + " STARTED", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "▶️ " + EXERCISES[index] + " STARTED", Toast.LENGTH_SHORT).show();
     }
 
     private void pauseTimer(int index, TextView timerLabel) {
         if (timersHandler[index] != null) {
-            if (isPaused[index]) {
-                isPaused[index] = false;
+            isPaused[index] = !isPaused[index];
+            if (!isPaused[index]) {
                 timersHandler[index].post(timerRunnables[index]);
-            } else {
-                isPaused[index] = true;
             }
-            Toast.makeText(this, "⏸️ Timer " + (index+1) + (isPaused[index] ? " PAUSED" : " RESUMED"), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "⏸️ " + EXERCISES[index] + (isPaused[index] ? " PAUSED" : " RESUMED"), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -216,84 +174,54 @@ public class ExerciseActivity extends AppCompatActivity {
         }
         isPaused[index] = false;
         repCounts[index] = 0;
-        timerLabel.setText("00:00");
-        repsLabel.setText("0 reps");
-        Toast.makeText(this, "⏹️ Timer " + (index+1) + " RESET", Toast.LENGTH_SHORT).show();
+        if (timerLabel != null) timerLabel.setText("00:00");
+        if (repsLabel != null) repsLabel.setText("0 reps");
+        Toast.makeText(this, "⏹️ " + EXERCISES[index] + " RESET", Toast.LENGTH_SHORT).show();
     }
 
     private void addRep(int index, TextView repsLabel, String exercise) {
         repCounts[index]++;
-        repsLabel.setText(repCounts[index] + " reps");
-        Toast.makeText(this, "✅ Saved " + exercise + ": " + repCounts[index] + " reps", Toast.LENGTH_SHORT).show();
+        if (repsLabel != null) {
+            repsLabel.setText(repCounts[index] + " reps");
+        }
+        Toast.makeText(this, "✅ " + exercise + ": " + repCounts[index] + " reps", Toast.LENGTH_SHORT).show();
     }
 
-    // ✅ ALL SAME METHODS (unchanged)
     public void saveWeight() {
+        if (weightInput == null) return;
         try {
             double weight = Double.parseDouble(weightInput.getText().toString().trim());
             weightInput.setText("");
-            Toast.makeText(this, "✅ Weight saved: " + weight + "kg", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "✅ Weight: " + weight + "kg", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, "❌ Invalid weight", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void markAttendance() {
-        try {
-            attendanceBtn.setText("✅ Marked Today!");
-            Toast.makeText(this, "✅ Attendance marked", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Toast.makeText(this, "ℹ️ Already marked today", Toast.LENGTH_SHORT).show();
+        if (attendanceBtn != null) {
+            attendanceBtn.setText("✅ Marked!");
         }
+        Toast.makeText(this, "✅ Attendance marked", Toast.LENGTH_SHORT).show();
     }
 
     public void saveBreakfast() { saveMeal("Breakfast", breakfastCalories); }
     public void saveLunch() { saveMeal("Lunch", lunchCalories); }
     public void saveDinner() { saveMeal("Dinner", dinnerCalories); }
 
-    private void saveMeal(String mealName, EditText calorieField) {
+    private void saveMeal(String meal, EditText field) {
+        if (field == null) return;
         try {
-            String text = calorieField.getText().toString().trim();
+            String text = field.getText().toString().trim();
             if (text.isEmpty()) return;
-            int calories = Integer.parseInt(text);
-            if (calories <= 0 || calories > 5000) {
-                Toast.makeText(this, "❌ Invalid calories for " + mealName, Toast.LENGTH_SHORT).show();
-                return;
+            int cal = Integer.parseInt(text);
+            if (cal > 0 && cal <= 5000) {
+                field.setText("");
+                Toast.makeText(this, "✅ " + meal + ": " + cal + " kcal", Toast.LENGTH_SHORT).show();
             }
-            calorieField.setText("");
-            loadDietChart();
-            updateTotalCalories();
-            Toast.makeText(this, "✅ " + mealName + ": " + calories + " kcal saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            Toast.makeText(this, "❌ Enter valid calories for " + mealName, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "❌ Invalid " + meal + " calories", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void updateTotalCalories() {
-        if (totalCalories != null) {
-            totalCalories.setText("1800 kcal");
-        }
-    }
-
-    private void loadDietChart() {
-        if (dietChart == null || dietChart.getChildCount() < 3) return;
-
-        try {
-            TextView breakfastView = (TextView) dietChart.getChildAt(0);
-            TextView lunchView = (TextView) dietChart.getChildAt(1);
-            TextView dinnerView = (TextView) dietChart.getChildAt(2);
-
-            breakfastView.setText("Breakfast\n500 kcal");
-            lunchView.setText("Lunch\n700 kcal");
-            dinnerView.setText("Dinner\n600 kcal");
-        } catch (Exception e) {
-            Toast.makeText(this, "ℹ️ No diet data", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private String getTodayDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        return sdf.format(new Date());
     }
 
     @Override
@@ -302,6 +230,7 @@ public class ExerciseActivity extends AppCompatActivity {
         for (int i = 0; i < 5; i++) {
             if (timersHandler[i] != null) {
                 timersHandler[i].removeCallbacksAndMessages(null);
+                timersHandler[i] = null;
             }
         }
     }

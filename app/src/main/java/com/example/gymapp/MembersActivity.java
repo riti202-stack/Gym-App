@@ -32,7 +32,7 @@ public class MembersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.members_fragment);  // ✅ Use same layout!
+        setContentView(R.layout.activity_members);  // ✅ Use same layout!
 
         dbHelper = new DatabaseHelper(this);
 

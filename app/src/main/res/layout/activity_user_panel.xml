@@ -59,11 +59,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:text="💰 Payments"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textColor="#27ae60"
-                    android:layout_marginBottom="10dp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/paymentsRecycler"

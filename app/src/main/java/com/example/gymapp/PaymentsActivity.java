@@ -29,7 +29,7 @@ public class PaymentsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_payments);
+        setContentView(R.layout.activity_payments);
 
         dbHelper = new DatabaseHelper(this);
         initViews();
