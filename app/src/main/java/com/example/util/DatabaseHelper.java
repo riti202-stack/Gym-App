@@ -2,10 +2,18 @@ package com.example.util;
 
 // Change to your package
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.DropBoxManager;
 import android.util.Log;
+
+import com.example.gymapp.models.WeightRecord;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHelper";
@@ -152,5 +160,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         helper.getReadableDatabase(); // Triggers onCreate
         helper.close();
     }
+    public void insertWorkout(int memberId, String exercise, int reps, String date) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("member_id", memberId);
+        values.put("exercise", exercise);
+        values.put("reps", reps);
+        values.put("day", date);
+        db.insert("workout", null, values);
+        db.close();
+    }
+
+    // Add to your DatabaseHelper class:
+    public void insertWeightRecord(WeightRecord record) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("member_id", record.getMemberId());
+        values.put("weight", record.getWeight());
+        values.put("record_date", record.getDate());
+        db.insert("weight", null, values);
+        db.close();
+    }
+
+    public List<WeightRecord> getWeightRecords(int memberId) {
+        List<WeightRecord> records = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM weight WHERE member_id = ? ORDER BY record_date DESC",
+                new String[]{String.valueOf(memberId)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                WeightRecord record = new WeightRecord(
+                        cursor.getInt(0),  // id
+                        cursor.getString(2),  // date
+                        cursor.getDouble(3),  // weight
+                        cursor.getInt(1)  // member_id
+                );
+                records.add(record);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return records;
+    }
+
+
 }
 

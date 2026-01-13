@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:background="@drawable/table">
+
+    <TextView android:id="@+id/date" android:layout_width="120dp" android:layout_height="wrap_content"
+        android:textSize="14sp" android:gravity="center"/>
+    <TextView android:id="@+id/status" android:layout_width="0dp" android:layout_height="wrap_content"
+        android:layout_weight="1" android:textSize="16sp" android:textColor="#27ae60"
+        android:gravity="center" android:background="#d5f4e6" android:padding="6dp"/>
+</LinearLayout>

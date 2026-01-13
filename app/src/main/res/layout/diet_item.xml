@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/mealText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.3"
+        android:text="Chicken Breast"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#2c3e50"
+        android:ellipsize="end"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/caloriesText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:text="350 kcal"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#9b59b6"
+        android:gravity="end"
+        android:background="@drawable/calories_badge"
+        android:padding="4dp"
+        android:minHeight="28dp"
+        android:layout_marginStart="8dp" />
+
+    <TextView
+        android:id="@+id/dateText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.9"
+        android:text="2026-01-12"
+        android:textSize="12sp"
+        android:textColor="#7f8c8d"
+        android:gravity="end"
+        android:layout_marginStart="4dp" />
+</LinearLayout>

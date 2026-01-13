@@ -64,7 +64,7 @@
             android:scrollbars="vertical"
             android:padding="8dp"
             android:clipToPadding="false"
-            android:background="@drawable/table_bg" />
+            android:background="@drawable/table" />
 
     </LinearLayout>
 
