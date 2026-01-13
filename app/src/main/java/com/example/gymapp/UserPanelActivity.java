@@ -1,5 +1,7 @@
 package com.example.gymapp;
 
+
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gymapp.adapters.AttendanceAdapter;
 import com.example.gymapp.adapters.DietAdapter;
-import com.example.gymapp.adapters.PaymentAdapter;
+import com.example.gymapp.adapters.PaymentsAdapter;
 import com.example.gymapp.adapters.WeightAdapter;
 import com.example.gymapp.adapters.WorkoutAdapter;
 import com.example.gymapp.models.Attendance;
@@ -39,7 +41,7 @@ public class UserPanelActivity extends AppCompatActivity {
     private Button refreshBtn, exerciseBtn, logoutBtn;
 
     // Adapters (all 5 complete)
-    private PaymentAdapter paymentAdapter;
+    private PaymentsAdapter paymentAdapter;
     private AttendanceAdapter attendanceAdapter;
     private WorkoutAdapter workoutAdapter;
     private DietAdapter dietAdapter;
@@ -77,7 +79,7 @@ public class UserPanelActivity extends AppCompatActivity {
         weightRecycler = findViewById(R.id.weightRecycler);
 
         // Initialize all 5 adapters
-        paymentAdapter = new PaymentAdapter();
+        paymentAdapter = new PaymentsAdapter();
         attendanceAdapter = new AttendanceAdapter();
         workoutAdapter = new WorkoutAdapter();
         dietAdapter = new DietAdapter();
@@ -287,7 +289,7 @@ public class UserPanelActivity extends AppCompatActivity {
 
     private void goToExercise() {
         if (memberId != -1) {
-            Intent intent = new Intent(this, ExerciseFragment.class);
+            Intent intent = new Intent(this, ExerciseActivity.class);
             intent.putExtra("MEMBER_ID", memberId);
             startActivity(intent);
         } else {
@@ -303,3 +305,5 @@ public class UserPanelActivity extends AppCompatActivity {
         Toast.makeText(this, "👋 Logged out", Toast.LENGTH_SHORT).show();
     }
 }
+
+

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_marginBottom="1dp">
+
+    <!-- ID Column -->
+    <TextView
+        android:id="@+id/memberId"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#2c3e50"/>
+
+    <!-- Name + Email -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="15dp">
+
+        <TextView
+            android:id="@+id/memberName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#2c3e50"/>
+
+        <TextView
+            android:id="@+id/memberEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#3498db"/>
+    </LinearLayout>
+
+    <!-- Payments Section -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp">
+
+        <TextView
+            android:id="@+id/memberLatestPayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#7f8c8d"/>
+
+        <TextView
+            android:id="@+id/memberTotalPaid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#27ae60"/>
+    </LinearLayout>
+
+    <!-- Weight + Join Date Section -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="15dp">
+
+        <TextView
+            android:id="@+id/memberLatestWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#95a5a6"/>
+
+        <TextView
+            android:id="@+id/memberJoinDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#7f8c8d"/>
+    </LinearLayout>
+
+</LinearLayout>

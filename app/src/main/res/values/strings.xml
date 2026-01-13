@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Gym App</string>
 
-<string name="gym_management_system">Gym Management System</string>
-<string name="dashboard">Dashboard</string>
-<string name="members">Members</string>
-<string name="payments">Payments</string>
-<string name="logout">Logout</string>
-<string name="welcome_back">Welcome Back</string>
-<string name="total_members">Total Members</string>
-<string name="monthly_income">Monthly Income</string>
+    <string name="gym_management_system">Gym Management System</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="members">Members</string>
+    <string name="payments">Payments</string>
+    <string name="logout">Logout</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="total_members">Total Members</string>
+    <string name="monthly_income">Monthly Income</string>
 </resources>

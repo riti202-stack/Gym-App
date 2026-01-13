@@ -24,6 +24,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();  // ← Triggers tables + admin
+        db.close();
+        dbHelper.close();
+
         // ✅ Initialize Database
         dbHelper = new DatabaseHelper(this);
 
@@ -49,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
 
         new Thread(() -> {
             SQLiteDatabase db = dbHelper.getReadableDatabase();
+            SQLiteDatabase writeDb = null;
             try {
                 // ✅ ANDROID SQLite: Use Cursor + rawQuery
                 Cursor cursor = db.rawQuery("SELECT * FROM users WHERE username = ?", new String[]{user});
@@ -77,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 } else {
                     // Create new user
-                    SQLiteDatabase writeDb = dbHelper.getWritableDatabase();
+                    writeDb = dbHelper.getWritableDatabase();
                     ContentValues userValues = new ContentValues();
                     userValues.put("username", user);
                     userValues.put("password", pass);
@@ -92,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                         memberValues.put("name", user);
                         memberValues.put("email", "");
                         memberValues.put("phone", "");
-                        memberValues.put("join_date", java.time.LocalDate.now().toString());
+                        memberValues.put("join_date", android.text.format.DateFormat.getDateFormat(this).format(new java.util.Date()));
                         writeDb.insert("members", null, memberValues);
 
                         runOnUiThread(() -> {
@@ -112,10 +118,14 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
             } finally {
                 db.close();
+                if (writeDb != null) writeDb.close();
                 dbHelper.close();
             }
         }).start();
     }
+
+
+
 
     private void switchToDashboard() {
         Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);

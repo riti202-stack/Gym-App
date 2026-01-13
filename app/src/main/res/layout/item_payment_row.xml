@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="15dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_marginBottom="1dp">
+
+    <!-- Member ID -->
+    <TextView
+        android:id="@+id/paymentMemberId"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#2c3e50"
+        android:gravity="center_vertical" />
+
+    <!-- Member Name -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="15dp">
+
+        <TextView
+            android:id="@+id/paymentMemberName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#2c3e50" />
+    </LinearLayout>
+
+    <!-- Amount + Status -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/paymentAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#27ae60" />
+
+        <TextView
+            android:id="@+id/paymentStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#3498db"
+            android:background="#e8f4fd"
+            android:padding="4dp"
+            android:layout_marginTop="2dp" />
+    </LinearLayout>
+
+    <!-- Date -->
+    <TextView
+        android:id="@+id/paymentDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:textSize="14sp"
+        android:textColor="#7f8c8d" />
+
+</LinearLayout>

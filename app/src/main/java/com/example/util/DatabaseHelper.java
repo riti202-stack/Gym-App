@@ -34,6 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         Log.d(TAG, "🧹 Creating fresh database...");
         createAllTables(db);
         insertAdminOnly(db);
@@ -181,6 +182,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert("weight", null, values);
         db.close();
     }
+    // ✅ ADD THIS COMPLETE CLASS inside DatabaseHelper.java
+    public static class WeightRecord {
+        private int id;
+        private int memberId;
+        private double weight;
+        private String date;
+
+        public WeightRecord(int id, int memberId, double weight, String date) {
+            this.id = id;
+            this.memberId = memberId;
+            this.weight = weight;
+            this.date = date;
+        }
+
+        // ✅ REQUIRED GETTERS for line 178
+        public int getId() { return id; }
+        public int getMemberId() { return memberId; }
+        public double getWeight() { return weight; }
+        public String getDate() { return date; }
+    }
+
 
     public List<WeightRecord> getWeightRecords(int memberId) {
         List<WeightRecord> records = new ArrayList<>();
@@ -190,11 +212,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
+                // ✅ CORRECT COLUMN INDICES for weight table:
+                // 0=id, 1=member_id, 2=weight, 3=record_date
                 WeightRecord record = new WeightRecord(
-                        cursor.getInt(0),  // id
-                        cursor.getString(2),  // date
-                        cursor.getDouble(3),  // weight
-                        cursor.getInt(1)  // member_id
+                        cursor.getInt(0),        // id (index 0)
+                        cursor.getInt(1),        // member_id (index 1)
+                        cursor.getDouble(2),     // weight (index 2) ✅ FIXED
+                        cursor.getString(3)      // record_date (index 3) ✅ FIXED
                 );
                 records.add(record);
             } while (cursor.moveToNext());
@@ -203,6 +227,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return records;
     }
+
 
 
 }
